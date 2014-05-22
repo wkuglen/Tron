@@ -1,3 +1,4 @@
+package Main;
 import java.awt.Color;
 
 import TheGrid.Background;
@@ -26,6 +27,8 @@ public class Bike extends Bug{
     public Bike(Color bikeColor)
     {
         setColor(bikeColor);
+        turn();
+        turn();
     }
 
     /**
@@ -33,7 +36,7 @@ public class Bike extends Bug{
      */
     public void act()
     {
-    	update();
+    	//update();
         if (canMove())
             move();
         else
@@ -47,10 +50,7 @@ public class Bike extends Bug{
     /**
      * Turns the bug 45 degrees to the right without changing its location.
      */
-    public void update()
-    {
-        setDirection(getDirection() + Location.HALF_RIGHT);
-    }
+    
 
     /**
      * Moves the bug forward, putting a flower into the location it previously
