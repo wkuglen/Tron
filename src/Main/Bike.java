@@ -1,6 +1,7 @@
 package Main;
 import java.awt.Color;
 
+import ArtificialIntelligence.TheBrain;
 import TheGrid.Background;
 import TheGrid.Trail;
 
@@ -12,21 +13,29 @@ import info.gridworld.grid.Location;
 
 
 public class Bike extends Bug{
+	
+	public static final boolean isPlayer = true;
+	public static final boolean isAI = false;
+	
+	private boolean type;
+	
 	/**
      * Constructs a red bug.
      */
     public Bike()
     {
-        setColor(Color.BLUE);
+        setColor(Color.BLACK);
+        type = isAI;
     }
 
     /**
      * Constructs a bug of a given color.
      * @param bugColor the color for this bug
      */
-    public Bike(Color bikeColor)
+    public Bike(Color bikeColor, boolean intendedType)
     {
         setColor(bikeColor);
+        type = intendedType;
         turn();
         turn();
     }
@@ -82,6 +91,10 @@ public class Bike extends Bug{
         if (gr == null)
             return false;
         Location loc = getLocation();
+        if(!type)//if AI
+        {
+        	setDirection(TheBrain.chooseD(this));
+        }
         Location next = loc.getAdjacentLocation(getDirection());
         if (!gr.isValid(next))
             return false;

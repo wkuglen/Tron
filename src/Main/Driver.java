@@ -1,5 +1,6 @@
 package Main;
 
+import info.gridworld.actor.Actor;
 import info.gridworld.actor.ActorWorld;
 import info.gridworld.grid.BoundedGrid;
 import info.gridworld.grid.Grid;
@@ -19,12 +20,12 @@ public class Driver {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		BoundedGrid playingField = new BoundedGrid(40, 40);
+		BoundedGrid<Actor> playingField = new BoundedGrid<Actor>(40, 40);
 		ActorWorld aw = new ActorWorld(playingField);
 		
 		
-		bluePlayer = new Bike(Color.CYAN);
-		orangeCPU = new Bike(Color.ORANGE);
+		bluePlayer = new Bike(Color.BLUE, Bike.isPlayer);
+		orangeCPU = new Bike(Color.ORANGE, Bike.isAI);
 		
 		
 		Location bStart = new Location(0,0);
@@ -44,6 +45,7 @@ public class Driver {
 		orangeCPU.setDirection(Location.WEST);
 		
 		
+		
 		java.awt.KeyboardFocusManager.getCurrentKeyboardFocusManager()
 		.addKeyEventDispatcher(new java.awt.KeyEventDispatcher() {
 			public boolean dispatchKeyEvent(java.awt.event.KeyEvent event) {
@@ -56,14 +58,14 @@ public class Driver {
 					bluePlayer.setDirection(Location.SOUTH);
 				if (key.equals("pressed LEFT"))
 					bluePlayer.setDirection(Location.WEST);
-				if (key.equals("pressed W"))
+				/*if (key.equals("pressed W"))
 					orangeCPU.setDirection(Location.NORTH);
 				if (key.equals("pressed A"))
 					orangeCPU.setDirection(Location.WEST);
 				if (key.equals("pressed S"))
 					orangeCPU.setDirection(Location.SOUTH);
 				if (key.equals("pressed D"))
-					orangeCPU.setDirection(Location.EAST);
+					orangeCPU.setDirection(Location.EAST);*/
 				return true;
 			}
 		});
