@@ -1,5 +1,6 @@
 package Main;
 import java.awt.Color;
+import java.util.Date;
 
 import ArtificialIntelligence.TheBrain;
 import TheGrid.Background;
@@ -51,7 +52,7 @@ public class Bike extends Bug{
         else
         {
         	removeSelfFromGrid();
-        	System.out.println("You Lose");
+        	System.out.println(this);
         }
         
     }
@@ -94,6 +95,7 @@ public class Bike extends Bug{
         if(!type)//if AI
         {
         	setDirection(TheBrain.chooseD(this));
+        	
         }
         Location next = loc.getAdjacentLocation(getDirection());
         if (!gr.isValid(next))
@@ -102,5 +104,29 @@ public class Bike extends Bug{
         return (neighbor instanceof Background);
         // ok to move into empty location or onto flower
         // not ok to move onto any other actor
+    }
+    public String toString()
+    {
+    	String s = "";
+    	if(getColor().equals(Color.CYAN))
+    	{
+			s += "Blue was Derezzed at ";
+    	}
+    	else if(getColor().equals(Color.RED))
+    	{
+    		s += "Red was Derezzed at ";
+    	}
+    	else if(getColor().equals(Color.ORANGE))
+    	{
+    		s += "Green was Derezzed at ";
+    	}
+    	else if(getColor().equals(Color.MAGENTA))
+    	{
+    		s += "Purple was Derezzed at ";
+    	}
+    	s+=(new Date()).toString();	
+    	
+		return s;
+    	
     }
 }

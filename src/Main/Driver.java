@@ -14,8 +14,10 @@ import TheGrid.Background;
 
 public class Driver {
 
-	static Bike bluePlayer;
-	static Bike orangeCPU;
+	private static Bike bluePlayer;
+	private static Bike orangeCPU;
+	private static Bike redCPU;
+	private static Bike whiteCPU;
 	/**
 	 * @param args
 	 */
@@ -23,13 +25,16 @@ public class Driver {
 		BoundedGrid<Actor> playingField = new BoundedGrid<Actor>(40, 40);
 		ActorWorld aw = new ActorWorld(playingField);
 		
-		
-		bluePlayer = new Bike(Color.BLUE, Bike.isPlayer);
+		bluePlayer = new Bike(Color.CYAN, Bike.isPlayer);
 		orangeCPU = new Bike(Color.ORANGE, Bike.isAI);
+		redCPU = new Bike(Color.RED, Bike.isAI);
+		whiteCPU = new Bike(Color.MAGENTA, Bike.isAI);
 		
 		
 		Location bStart = new Location(0,0);
 		Location oStart = new Location(playingField.getNumRows()-1,playingField.getNumCols()-1);
+		Location rStart = new Location(0,playingField.getNumCols()-1);
+		Location wStart = new Location(playingField.getNumRows()-1,0);
 		
 		
 		for(int r = 0; r<playingField.getNumRows(); r++)
@@ -43,6 +48,10 @@ public class Driver {
 		bluePlayer.putSelfInGrid(playingField, bStart);
 		orangeCPU.putSelfInGrid(playingField, oStart);
 		orangeCPU.setDirection(Location.WEST);
+		redCPU.putSelfInGrid(playingField, rStart);
+		redCPU.setDirection(Location.SOUTH);
+		whiteCPU.putSelfInGrid(playingField, wStart);
+		whiteCPU.setDirection(Location.NORTH);
 		
 		
 		
@@ -50,13 +59,13 @@ public class Driver {
 		.addKeyEventDispatcher(new java.awt.KeyEventDispatcher() {
 			public boolean dispatchKeyEvent(java.awt.event.KeyEvent event) {
 				String key = javax.swing.KeyStroke.getKeyStrokeForEvent(event).toString();
-				if (key.equals("pressed UP"))
+				if (key.equals("pressed W"))
 					bluePlayer.setDirection(Location.NORTH);
-				if (key.equals("pressed RIGHT"))
+				if (key.equals("pressed D"))
 					bluePlayer.setDirection(Location.EAST);
-				if (key.equals("pressed DOWN"))
+				if (key.equals("pressed S"))
 					bluePlayer.setDirection(Location.SOUTH);
-				if (key.equals("pressed LEFT"))
+				if (key.equals("pressed A"))
 					bluePlayer.setDirection(Location.WEST);
 				/*if (key.equals("pressed W"))
 					orangeCPU.setDirection(Location.NORTH);
@@ -73,5 +82,6 @@ public class Driver {
 		aw.show();
 
 	}
+	
 
 }
