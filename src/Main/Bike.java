@@ -2,13 +2,12 @@ package Main;
 import java.awt.Color;
 import java.util.Date;
 
-import ArtificialIntelligence.TheBrain;
+import ArtificialIntelligence.LevelA;
 import TheGrid.Background;
 import TheGrid.Trail;
 
 import info.gridworld.actor.Actor;
 import info.gridworld.actor.Bug;
-import info.gridworld.actor.Flower;
 import info.gridworld.grid.Grid;
 import info.gridworld.grid.Location;
 
@@ -19,6 +18,8 @@ public class Bike extends Bug{
 	public static final boolean isAI = false;
 	
 	private boolean type;
+	private int AIdegree = 1;
+	private Date timeOfDeath;
 	
 	/**
      * Constructs a red bug.
@@ -52,7 +53,9 @@ public class Bike extends Bug{
         else
         {
         	removeSelfFromGrid();
+        	timeOfDeath = new Date();
         	System.out.println(this);
+        	TronUtil.addToList(this);
         }
         
     }
@@ -94,7 +97,7 @@ public class Bike extends Bug{
         Location loc = getLocation();
         if(!type)//if AI
         {
-        	setDirection(TheBrain.chooseD(this));
+        	setDirection(LevelA.chooseD(this));
         	
         }
         Location next = loc.getAdjacentLocation(getDirection());
@@ -110,23 +113,33 @@ public class Bike extends Bug{
     	String s = "";
     	if(getColor().equals(Color.CYAN))
     	{
-			s += "Blue was Derezzed at ";
+			s += "Blue";
     	}
     	else if(getColor().equals(Color.RED))
     	{
-    		s += "Red was Derezzed at ";
+    		s += "Red";
     	}
     	else if(getColor().equals(Color.ORANGE))
     	{
-    		s += "Green was Derezzed at ";
+    		s += "Green";
     	}
     	else if(getColor().equals(Color.MAGENTA))
     	{
-    		s += "Purple was Derezzed at ";
+    		s += "Purple";
     	}
-    	s+=(new Date()).toString();	
-    	
+    	if(type == isAI)
+    	{
+    		s += "(AI Level "+AIdegree+")";
+    	}
+    	if(type == isPlayer)
+    	{
+    		s += "(you)";
+    	}
 		return s;
     	
+    }
+    public String getTimeOfDeath()
+    {
+    	return timeOfDeath.toString();
     }
 }

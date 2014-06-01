@@ -10,10 +10,13 @@ import info.gridworld.world.World;
 
 import java.awt.Color;
 
+import javax.swing.JOptionPane;
+
 import TheGrid.Background;
 
 public class Driver {
 
+	private static BoundedGrid<Actor> playingField;
 	private static Bike bluePlayer;
 	private static Bike orangeCPU;
 	private static Bike redCPU;
@@ -22,7 +25,7 @@ public class Driver {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		BoundedGrid<Actor> playingField = new BoundedGrid<Actor>(40, 40);
+		playingField = new BoundedGrid<Actor>(40, 40);
 		ActorWorld aw = new ActorWorld(playingField);
 		
 		bluePlayer = new Bike(Color.CYAN, Bike.isPlayer);
@@ -67,6 +70,8 @@ public class Driver {
 					bluePlayer.setDirection(Location.SOUTH);
 				if (key.equals("pressed A"))
 					bluePlayer.setDirection(Location.WEST);
+				if (key.equals("pressed E"))				
+					TronUtil.endGame(playingField);
 				/*if (key.equals("pressed W"))
 					orangeCPU.setDirection(Location.NORTH);
 				if (key.equals("pressed A"))
@@ -81,6 +86,7 @@ public class Driver {
 		
 		aw.show();
 
+		
 	}
 	
 
