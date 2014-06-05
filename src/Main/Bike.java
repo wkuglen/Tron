@@ -34,6 +34,7 @@ public class Bike extends Bug{
     {
         setColor(Color.BLACK);
         type = isAI;
+        AIdegree = (int)(Math.random()*3)+1;
         movesRemain = AIdegree;
     }
 
@@ -46,6 +47,7 @@ public class Bike extends Bug{
     {
         setColor(bikeColor);
         type = intendedType;
+        AIdegree = (int)(Math.random()*3)+1;
         movesRemain = AIdegree;
         turn();
         turn();
@@ -61,10 +63,13 @@ public class Bike extends Bug{
             move();
         else
         {
+        	Grid g = getGrid();
+        	Location grave = getLocation();
         	removeSelfFromGrid();
         	timeOfDeath = new Date();
-        	//System.out.println(this);
         	TronUtil.addToList(this);
+        	Trail t = new Trail(getColor());
+            t.putSelfInGrid(g, grave);
         }
         
     }

@@ -75,6 +75,10 @@ public class Driver {
 					bluePlayer.setDirection(Location.WEST);
 				if (key.equals("pressed E"))				
 					TronUtil.endGame(playingField);
+				if (key.equals("pressed R"))				
+					TronUtil.resetGame(playingField, bluePlayer, orangeCPU, redCPU, whiteCPU);
+				if (key.equals("pressed T"))				
+					TronUtil.pressT();
 				/*if (key.equals("pressed W"))
 					orangeCPU.setDirection(Location.NORTH);
 				if (key.equals("pressed A"))
@@ -87,6 +91,7 @@ public class Driver {
 			}
 		});
 		
+		TronUtil.beginGame(playingField);
 		aw.show();
 
 		
