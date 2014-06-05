@@ -6,8 +6,16 @@ import info.gridworld.grid.Location;
 import Main.Bike;
 import TheGrid.Background;
 
+/**
+ * @author Will Kuglen
+ * Advanced AI class (hard)
+ */
 public class LevelC {
 
+	/**
+	 * @param bike
+	 * @return chooses direction that is 5-15 spaces ahead
+	 */
 	public static int chooseD(Bike bike)
 	{
 		Grid<Actor> g = bike.getGrid();
@@ -32,42 +40,41 @@ public class LevelC {
 							validMove = true;
 							view--;
 							prospective = temp;
-						}
+						}//if(g.isValid(temp) && g.get(temp) instanceof Background)
 						else
 						{
 							view = -1;
 							validMove = false;
-						}
-						
-					}
+						}//else of if(g.isValid(temp) && g.get(temp) instanceof Background)						
+					}//if(g.get(prospective) instanceof Background)
 					else
 					{
 						view = -1;
 						validMove = false;
-					}
-				}
+					}//else of if(g.get(prospective) instanceof Background)
+				}//while(g.isValid(prospective) && view > 0 )
 				if(validMove)
 				{
 					//FOR DEBUGGING ONLY: System.out.println(bike+"I'm at"+loc+"looking at"+prospective);
 					bike.resetMovesRemain();
 					return currentDir;
-				}
+				}//if(validMove)
 				else//if(!stillValid)
 				{
 					currentDir += 90;
 					if(currentDir >= 360)
 						currentDir = 0 + 90*(currentDir/90-4);
 					//FOR DEBUGGING ONLY: System.out.println(bike.toString()+bike.getDirection()+"turning to"+currentDir);
-				}
+				}//else of 	if(validMove)
 			}//for
 			bike.resetMovesRemain();
 			//Degraded in case of no easy way out
 			return LevelB.chooseD(bike);
-		}
-		bike.decreaseMovesRemain();//movesRemain--;
+		}//if(bike.getMovesRemain() <= 0)
+		bike.decreaseMovesRemain();
 		if(g.isValid(loc.getAdjacentLocation(bike.getDirection())) && g.get(loc.getAdjacentLocation(bike.getDirection())) instanceof Background)
 			return bike.getDirection();
 		else		
 			return LevelB.chooseD(bike);
-	}
-}
+	}//public static int chooseD(Bike bike)
+}//public class LevelC
