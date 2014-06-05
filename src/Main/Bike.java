@@ -3,6 +3,8 @@ import java.awt.Color;
 import java.util.Date;
 
 import ArtificialIntelligence.LevelA;
+import ArtificialIntelligence.LevelB;
+import ArtificialIntelligence.LevelC;
 import TheGrid.Background;
 import TheGrid.Trail;
 
@@ -14,30 +16,37 @@ import info.gridworld.grid.Location;
 
 public class Bike extends Bug{
 	
+	//Public Variables
 	public static final boolean isPlayer = true;
 	public static final boolean isAI = false;
 	
+	//Private Variables
 	private boolean type;
-	private int AIdegree = 1;
+	private int AIdegree = 3;
+	private int movesRemain; //movesRemain = AIdegree 
 	private Date timeOfDeath;
 	
-	/**
-     * Constructs a red bug.
+	//Constructors\\
+    /**
+     * 
      */
     public Bike()
     {
         setColor(Color.BLACK);
         type = isAI;
+        movesRemain = AIdegree;
     }
 
     /**
-     * Constructs a bug of a given color.
-     * @param bugColor the color for this bug
+     * Defined Constructor
+     * @param bikeColor intended Color of Bike
+     * @param intendedType must be isPlayer or isAI
      */
     public Bike(Color bikeColor, boolean intendedType)
     {
         setColor(bikeColor);
         type = intendedType;
+        movesRemain = AIdegree;
         turn();
         turn();
     }
@@ -54,16 +63,11 @@ public class Bike extends Bug{
         {
         	removeSelfFromGrid();
         	timeOfDeath = new Date();
-        	System.out.println(this);
+        	//System.out.println(this);
         	TronUtil.addToList(this);
         }
         
     }
-
-    /**
-     * Turns the bug 45 degrees to the right without changing its location.
-     */
-    
 
     /**
      * Moves the bug forward, putting a flower into the location it previously
@@ -97,17 +101,44 @@ public class Bike extends Bug{
         Location loc = getLocation();
         if(!type)//if AI
         {
-        	setDirection(LevelA.chooseD(this));
+        	if(AIdegree == 1)
+        		setDirection(LevelA.chooseD(this));
+        	if(AIdegree == 2)
+        		setDirection(LevelB.chooseD(this));
+        	if(AIdegree == 3)
+        		setDirection(LevelC.chooseD(this));
         	
         }
         Location next = loc.getAdjacentLocation(getDirection());
-        if (!gr.isValid(next))
+        if (!gr.isValid(next))        
             return false;
         Actor neighbor = gr.get(next);
         return (neighbor instanceof Background);
-        // ok to move into empty location or onto flower
-        // not ok to move onto any other actor
     }
+    
+    //Utility Methods (Called periodically not continuously)\\
+    /**
+     * @return String version of Date when removed from grid
+     */
+    public String getTimeOfDeath() 
+    {
+    	return timeOfDeath.toString();
+    }
+    public int getMovesRemain()
+    {
+    	return movesRemain;
+    }
+    public void decreaseMovesRemain()
+    {
+    	movesRemain--;
+    }
+    public void resetMovesRemain()
+    {
+    	movesRemain = AIdegree;
+    }
+    /**
+     * @return a String detailing the Bike
+     */
     public String toString()
     {
     	String s = "";
@@ -138,8 +169,5 @@ public class Bike extends Bug{
 		return s;
     	
     }
-    public String getTimeOfDeath()
-    {
-    	return timeOfDeath.toString();
-    }
+    
 }

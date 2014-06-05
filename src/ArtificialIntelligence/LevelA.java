@@ -10,14 +10,14 @@ import TheGrid.Background;
 
 public class LevelA {
 	
-	private static int movesRemain = (int)(Math.random()*10)+1 ;
+	//private static int movesRemain = (int)(Math.random()*10)+1 ;
 
 	public static int chooseD(Bike bike) 
 	{
-		if(movesRemain%2 == 0)
-		{
-			movesRemain = (int)(Math.random()*10)+2;
-		    int choice = (int)(Math.random()*10);
+		//if(movesRemain%2 == 0)
+		//{
+			//movesRemain = (int)(Math.random()*10)+2;
+		    int choice = (int)(Math.random()*100);
 		    Grid<Actor> g = bike.getGrid();
 		    Location loc = bike.getLocation();
 		    Location prospective = loc.getAdjacentLocation(Location.NORTH);
@@ -25,34 +25,34 @@ public class LevelA {
 		    {
 		    case 1: prospective = loc.getAdjacentLocation(Location.NORTH);
 		    		if(g.isValid(prospective) && g.get(prospective) instanceof Background)
-		    		{	movesRemain--;
+		    		{	//movesRemain--;
 		    			return Location.NORTH;
 		    		}
 		            break;
 			case 2: prospective = loc.getAdjacentLocation(Location.EAST);
 					if(g.isValid(prospective) && g.get(prospective) instanceof Background)
-					{	movesRemain--;
+					{	//movesRemain--;
 						return Location.EAST;
 					}
 					break;
 			case 3: prospective = loc.getAdjacentLocation(Location.SOUTH);
 					if(g.isValid(prospective) && g.get(prospective) instanceof Background)
-					{	movesRemain--;
+					{	//movesRemain--;
 						return Location.SOUTH;
 					}
 					break;
 			case 4: prospective = loc.getAdjacentLocation(Location.WEST);
 					if(g.isValid(prospective) && g.get(prospective) instanceof Background)
-					{	movesRemain--;
+					{	//movesRemain--;
 						return Location.WEST;
 					}
 					break;
-			default:movesRemain--;
+			default://movesRemain--;
 					return findClear(bike);					
 			}
 		    
-		}
-		movesRemain--;
+		//}
+		//movesRemain--;
 		//System.out.print("{}");
 		return bike.getDirection();
 	}

@@ -29,6 +29,7 @@ public class TronUtil {
 			}
 		}
 		String finalMsg = "Tron, you were derezzed!";
+		finalMsg += "\n   "+Driver.startTime.toString();
 		finalMsg += "\n   "+theDerezzed.get(0)+" was Derezzed at "+theDerezzed.get(0).getTimeOfDeath();
 		finalMsg += "\n   "+theDerezzed.get(1)+" was Derezzed at "+theDerezzed.get(1).getTimeOfDeath();
 		finalMsg += "\n   "+theDerezzed.get(2)+" was Derezzed at "+theDerezzed.get(2).getTimeOfDeath();

@@ -9,6 +9,7 @@ import info.gridworld.grid.UnboundedGrid;
 import info.gridworld.world.World;
 
 import java.awt.Color;
+import java.util.Date;
 
 import javax.swing.JOptionPane;
 
@@ -16,6 +17,8 @@ import TheGrid.Background;
 
 public class Driver {
 
+	public static Date startTime = new Date();
+	
 	private static BoundedGrid<Actor> playingField;
 	private static Bike bluePlayer;
 	private static Bike orangeCPU;
